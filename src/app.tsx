@@ -1,8 +1,18 @@
-import * as React from 'react';
+import React, { FC } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter } from 'react-router-dom';
+
+import AppRouter from './AppRouter';
 
 import './style.scss';
 
-function App() {
-  return <div className="divvvvv">{'react setup from scratch without cra testing ts'}</div>;
-}
+const App: FC = () => {
+  return (
+    <HelmetProvider>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </HelmetProvider>
+  );
+};
 export default App;

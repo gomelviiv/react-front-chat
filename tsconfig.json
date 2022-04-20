@@ -1,4 +1,5 @@
 {
+    "extends": "./tsconfig.paths.json",
     "compilerOptions": {
         "jsx": "react",
         "module": "commonjs",
@@ -10,7 +11,6 @@
         "target": "es2017",
         "sourceMap": true,
         "outDir": "./dist",
-        "baseUrl": "./",
         "incremental": true,
         "skipLibCheck": true,
         "strictNullChecks": false,
@@ -18,8 +18,19 @@
         "strictBindCallApply": false,
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
+        "esModuleInterop": true,
         "typeRoots": [
             "node_modules/@types"
-        ]
-    }
+        ],
+        
+    },
+    "include": [
+        "src"
+      ],
+      "baseUrl": "./",
+        "paths": {
+          "@/*": ["src/*"],
+          "@/shared/*": ["src/shared/*"],
+        }
+    
 }
