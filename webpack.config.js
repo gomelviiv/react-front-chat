@@ -43,7 +43,14 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      configs: path.resolve(__dirname, 'src/configs'),
+      shared: path.resolve(__dirname, 'src/shared'),
+      routes: path.resolve(__dirname, 'src/routes'),
+      constants: path.resolve(__dirname, 'src/constants'),
+      pages: path.resolve(__dirname, 'src/pages'),
+    },
+    extensions: ['.tsx', '.ts', '.js', '.css', '.scss'],
   },
   plugins: [
     new HtmlWebpackPlugin({

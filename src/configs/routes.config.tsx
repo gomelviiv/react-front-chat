@@ -1,10 +1,13 @@
 import Login from '../pages/Login';
 // import IUserMenuItems from 'shared/interfaces/menu/MenuItems.interface';
 import IRouteElement from 'shared/interfaces/routes/Route.interface';
-import Chat from '../pages/Chat';
+
+import Registration from '../pages/Registration';
+import Chat from 'pages/Chat';
 
 export const ROUTES = {
   LOGIN: '/',
+  REGISTRATION: '/registration',
   CHAT: '/chat',
   SETTINGS: '/settings',
 };
@@ -17,6 +20,12 @@ export const RESTRICTED_ROUTES: IRouteElement[] = [
   {
     path: ROUTES.LOGIN,
     element: Login,
+    exact: true,
+    restricted: true,
+  },
+  {
+    path: ROUTES.REGISTRATION,
+    element: Registration,
     exact: true,
     restricted: true,
   },

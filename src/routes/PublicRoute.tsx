@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { INITIAL_ROUTE } from '../configs/routes.config';
+import { INITIAL_ROUTE } from 'configs/routes.config';
 
 interface IProps {
   children: ReactElement;

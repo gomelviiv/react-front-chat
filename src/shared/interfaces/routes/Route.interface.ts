@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-
 interface IRouteElement {
   appTitle?: string;
   path: string;
