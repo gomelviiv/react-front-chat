@@ -1,9 +1,7 @@
-import Login from '../pages/Login';
-// import IUserMenuItems from 'shared/interfaces/menu/MenuItems.interface';
 import IRouteElement from 'shared/interfaces/routes/Route.interface';
-
-import Registration from '../pages/Registration';
 import Chat from 'pages/Chat';
+import Login from 'pages/Login';
+import Registration from 'pages/Registration';
 
 export const ROUTES = {
   LOGIN: '/',

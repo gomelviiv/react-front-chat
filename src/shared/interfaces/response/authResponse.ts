@@ -1,7 +1,7 @@
-import IUser from '../user/user.interface';
+import { IUserRegistrationResponseData } from '../user/userRegistration.interface';
 
 export interface AuthResponse {
   accessToken: string;
   refreshToken: string;
-  user: IUser;
+  user: IUserRegistrationResponseData;
 }

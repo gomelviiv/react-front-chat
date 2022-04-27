@@ -9,7 +9,7 @@ interface IProps {
 const LoginContainer: React.FC<IProps> = ({}) => {
   return (
     <div>
-      <Login a={'sdfdsf'} />
+      <Login />
     </div>
   );
 };

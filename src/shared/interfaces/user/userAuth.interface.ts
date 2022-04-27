@@ -1,6 +1,6 @@
-import IUserLogged from './userLogged.interface';
+import { IUserLoginResponse } from './userLogin.interface';
 
 export default interface IUserAuth {
   isAuthenticated: boolean;
-  user: IUserLogged;
+  user: IUserLoginResponse;
 }

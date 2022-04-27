@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
-import IUserAuth from 'shared/interfaces/user/iUserAuth.interface';
+
+import IUserAuth from 'shared/interfaces/user/userAuth.interface';
 
 const userAuthDefaults: IUserAuth = {
   isAuthenticated: false,

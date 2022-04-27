@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import Registration from './Registration';
 
 const RegistrationContainer: FC = () => {

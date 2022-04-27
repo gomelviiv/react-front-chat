@@ -1,19 +1,16 @@
 import React, { FC } from 'react';
+import { Fab, FormLabel, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Fab, FormLabel, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { FormLabelError } from '../../shared/components';
-import { registrationStyles, textFieldStyles } from './styles';
 
-type RegistrationInputs = {
-  login: string;
-  password: string;
-  passwordAgain: string;
-  email: string;
-  image: string;
-};
+import { IUserRegistrationRequestData } from 'shared/interfaces/user/userRegistration.interface';
+import useRegistration from 'shared/api/hooks/useRegistration';
+import { FormLabelError } from 'shared/components';
+
+import { RegistrationInputs } from './__types__/';
+import { registrationStyles, textFieldStyles } from './styles';
 
 const Registration: FC = () => {
   const {
@@ -27,13 +24,27 @@ const Registration: FC = () => {
       email: '',
       password: '',
       passwordAgain: '',
-      image: '',
+      picture: null,
     },
   });
 
-  const onSubmit: SubmitHandler<RegistrationInputs> = (
-    data: RegistrationInputs,
-  ) => console.log(2123, data);
+  const { registerUser } = useRegistration();
+
+  const onSubmit: SubmitHandler<RegistrationInputs> = (data: IUserRegistrationRequestData) => {
+    console.log(data);
+    const formData = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (data[key] instanceof FileList) {
+        Array.from(data[key]).forEach((picture: File) =>
+          formData.append(`${key}`, picture, picture.name),
+        );
+      } else {
+        formData.append(`${key}`, data[key]);
+      }
+    });
+
+    return registerUser(formData);
+  };
   return (
     <Stack display="block" sx={registrationStyles}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,17 +71,15 @@ const Registration: FC = () => {
               validate: (value) => value !== 'password',
             })}
           />
-          {errors.passwordAgain && (
-            <FormLabel color="error">This field is required</FormLabel>
-          )}
+          {errors.passwordAgain && <FormLabel color="error">This field is required</FormLabel>}
           <Stack>
-            <label htmlFor="upload-photo">
+            <label htmlFor="picture">
               <input
                 style={{ display: 'none' }}
-                id="upload-photo"
-                name="upload-photo"
+                id="picture"
+                name="picture"
                 type="file"
-                {...register('image')}
+                {...register('picture')}
               />
 
               <Fab

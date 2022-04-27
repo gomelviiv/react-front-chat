@@ -4,32 +4,25 @@ import Button from '@mui/material/Button';
 import FormLabel from '@mui/material/FormLabel';
 import Form from '@mui/material/FormGroup/FormGroup';
 import { Stack } from '@mui/material';
-
 import { useForm, SubmitHandler } from 'react-hook-form';
-
-import './login.scss';
 import { Link } from 'react-router-dom';
 
-interface IProps {
-  a: string;
-}
+import './login.scss';
 
 type LoginInputs = {
   login: string;
   password: string;
 };
 
-const Login: React.FC<IProps> = ({}) => {
+const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginInputs>({ defaultValues: { login: '', password: '' } });
 
-  const onSubmit: SubmitHandler<LoginInputs> = (data: LoginInputs) =>
-    console.log(data);
-  console.log(watch('login'));
+  const onSubmit: SubmitHandler<LoginInputs> = (data: LoginInputs) => console.log(data);
+
   return (
     <Stack
       sx={{
@@ -60,9 +53,7 @@ const Login: React.FC<IProps> = ({}) => {
             }}
             {...(register('password'), { required: true })}
           />
-          {errors.password && (
-            <FormLabel color="error">This field is required</FormLabel>
-          )}
+          {errors.password && <FormLabel color="error">This field is required</FormLabel>}
           <Stack spacing={2} direction="row" justifyContent="center">
             <Button type="submit">Войти</Button>
             <Link style={{ textDecoration: 'none' }} to="/registration">
