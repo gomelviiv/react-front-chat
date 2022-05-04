@@ -1,7 +1,7 @@
 interface IUserRegistrationRequestData {
   login: string;
   email: string;
-  picture: any;
+  picture: FileList;
   password: string;
 }
 

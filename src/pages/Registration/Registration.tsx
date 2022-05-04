@@ -8,8 +8,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { IUserRegistrationRequestData } from 'shared/interfaces/user/userRegistration.interface';
 import useRegistration from 'shared/api/hooks/useRegistration';
 import { FormLabelError } from 'shared/components';
+import { toFormData } from 'shared/helpers/ToFormData';
 
 import { RegistrationInputs } from './__types__/';
+import { registrationConstant } from './__constants__';
 import { registrationStyles, textFieldStyles } from './styles';
 
 const Registration: FC = () => {
@@ -18,33 +20,15 @@ const Registration: FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegistrationInputs>({
-    defaultValues: {
-      // TODO: move in separate file
-      login: '',
-      email: '',
-      password: '',
-      passwordAgain: '',
-      picture: null,
-    },
+    defaultValues: { ...registrationConstant },
   });
-
   const { registerUser } = useRegistration();
 
   const onSubmit: SubmitHandler<RegistrationInputs> = (data: IUserRegistrationRequestData) => {
-    console.log(data);
-    const formData = new FormData();
-    Object.keys(data).forEach((key) => {
-      if (data[key] instanceof FileList) {
-        Array.from(data[key]).forEach((picture: File) =>
-          formData.append(`${key}`, picture, picture.name),
-        );
-      } else {
-        formData.append(`${key}`, data[key]);
-      }
-    });
-
+    const formData = toFormData<IUserRegistrationRequestData>(data);
     return registerUser(formData);
   };
+
   return (
     <Stack display="block" sx={registrationStyles}>
       <form onSubmit={handleSubmit(onSubmit)}>
