@@ -1,8 +1,6 @@
 import { IUserRegistrationResponseData } from './userRegistration.interface';
 
-export default interface IUserAuth {
+export default interface IUserData {
   isAuthenticated: boolean;
   user: IUserRegistrationResponseData;
-  accessToken: string;
-  refreshToken: string;
 }

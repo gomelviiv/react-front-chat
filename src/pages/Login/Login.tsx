@@ -2,26 +2,32 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import FormLabel from '@mui/material/FormLabel';
-import Form from '@mui/material/FormGroup/FormGroup';
 import { Stack } from '@mui/material';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import './login.scss';
+import useLogin from 'shared/api/hooks/useLogin';
+import { IUserLoginRequest } from 'shared/interfaces/user/userLogin.interface';
+import { toFormData } from 'shared/helpers/ToFormData';
 
-type LoginInputs = {
-  login: string;
-  password: string;
-};
+import { LoginInputs } from './__types__';
+import { loginConstants } from './__constants__';
 
 const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInputs>({ defaultValues: { login: '', password: '' } });
+  } = useForm<LoginInputs>({ defaultValues: { ...loginConstants } });
 
-  const onSubmit: SubmitHandler<LoginInputs> = (data: LoginInputs) => console.log(data);
+  const { userLogin } = useLogin();
+
+  const onSubmit: SubmitHandler<LoginInputs> = (data: IUserLoginRequest) => {
+    const formData = toFormData<IUserLoginRequest>(data);
+    console.log(123);
+    return userLogin(formData);
+  };
 
   return (
     <Stack
@@ -35,12 +41,12 @@ const Login: React.FC = () => {
         maxWidth: '400px',
       }}
     >
-      <Form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2} direction="column">
           <TextField
             className="login-form__text-field"
             label="login"
-            {...(register('login'), { required: true })}
+            {...register('login', { required: true })}
           />
           {errors.login && <span>This field is required</span>}
 
@@ -51,17 +57,17 @@ const Login: React.FC = () => {
             sx={{
               root: { icon: { color: 'red' } },
             }}
-            {...(register('password'), { required: true })}
+            {...register('password', { required: true })}
           />
           {errors.password && <FormLabel color="error">This field is required</FormLabel>}
           <Stack spacing={2} direction="row" justifyContent="center">
             <Button type="submit">Войти</Button>
             <Link style={{ textDecoration: 'none' }} to="/registration">
-              <Button type="submit">Регистрация</Button>
+              <Button>Регистрация</Button>
             </Link>
           </Stack>
         </Stack>
-      </Form>
+      </form>
     </Stack>
   );
 };
